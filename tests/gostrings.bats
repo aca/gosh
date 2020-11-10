@@ -19,12 +19,10 @@
   [ "$output" -eq "5" ]
 }
 
-@test "index 1" {
+@test "index" {
   run gostrings index 'chicken' 'ken'
   [ "$output" -eq 4 ]
-}
 
-@test "index 2" {
   run gostrings index 'chicken' 'dmr'
   [ "$output" -eq -1 ]
 }
@@ -53,11 +51,27 @@
   run gostrings indexrune 'chicken' 'k'
   [ "$output"  -eq 4 ]
 
-  [ $(echo -n 'chicken' | gostrings indexrune 'k') -eq 4 ]
+  [ $(echo -n '--chicken' | gostrings indexrune 'c') -eq 2 ]
   [ $(echo -n 'chicken' | gostrings indexrune 'd') -eq -1 ]
 }
 
 @test "splitn" {
   run gostrings splitn 'a,b,c' ',' 2
   [ "$output" = "$(printf 'a\nb,c')" ]
+}
+
+@test "split" {
+  [ "$(echo -n 'a,b,c' | gostrings split ',' -o json)" = '["a","b","c"]' ]
+}
+
+@test "replace" {
+  [ "$(echo -n 'aaaaaaaaa' | gostrings replace 'a' 'b' 3)" = "bbbaaaaaa" ]
+}
+
+@test "replaceall" {
+  [ "$(echo -n 'aaaaaaaaa' | gostrings replaceall 'a' 'b')" = "bbbbbbbbb" ]
+}
+
+@test "repeat" {
+  [ "$(echo -n 'a' | gostrings repeat 3)" = "aaa" ]
 }

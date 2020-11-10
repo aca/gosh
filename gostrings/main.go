@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	if err := gostrings.CmdGostrings.Execute(); err != nil {
+	if err := gostrings.Cmd.Execute(); err != nil {
 		os.Exit(1)
 	}
 }
